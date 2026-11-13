@@ -25,7 +25,7 @@ def _pdf_text(path: Path) -> str:
     if executable is None:
         pytest.skip("pdftotext is required only for rendered-PDF extraction tests")
     result = subprocess.run(  # noqa: S603
-        [executable, str(path), "-"],
+        [executable, "-enc", "UTF-8", str(path), "-"],
         check=True,
         capture_output=True,
         text=True,
