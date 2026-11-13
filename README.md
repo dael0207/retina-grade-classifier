@@ -26,7 +26,15 @@
 
 > **교육용 실험입니다.** 등급별 점수는 임상적으로 보정된 진단 확률이 아니며, 이 앱은 의료기기가 아닙니다.
 
-## 무엇을 할 수 있나요?
+## 설치 없이 HTML로 시연하기
+
+[**HTML 시연 소스와 자산**](html-demo/) · [**배포된 웹 시연**](https://retina-classifier-dael0207.daelj.chatgpt.site) · [**HTML ZIP 다운로드**](https://github.com/dael0207/retina-grade-classifier/releases/download/v1.1.0/assignment2-html.zip)
+
+저장소를 내려받아 `html-demo/index.html`을 브라우저로 열면 됩니다. 실제 최종평가 사례 2개의 **저장된 모델 점수**, 원본·가림 민감도 전환, 평가표와 PDF 보고서가 포함됩니다. 새 사진 예측은 아래 Windows 실행 패키지에서 제공합니다.
+
+> 배포 사이트는 현재 소유자 전용입니다. 교수님 등 다른 사람이 웹 링크를 열려면 사이트 공유 범위를 별도로 변경해야 합니다. GitHub 저장소와 릴리스도 비공개입니다.
+
+## 전체 Python 앱에서 할 수 있는 일
 
 | 기능 | 실제 동작 |
 |---|---|
