@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="당뇨망막병증 양안 라벨 분석과 이미지 등급 분류 교육 프로젝트">
+  <meta name="color-scheme" content="light">
+  <title>Retina Pair Lab</title>
+  <link rel="stylesheet" href="/assets/styles.css">
+  <script src="/assets/app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">본문으로 건너뛰기</a>
+  <header class="topbar-wrap">
+    <div class="shell topbar">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none"><circle cx="12" cy="12" r="7" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="2.3" fill="currentColor"/><path d="M3 12c2.6-4 5.6-6 9-6s6.4 2 9 6c-2.6 4-5.6 6-9 6s-6.4-2-9-6Z" stroke="currentColor" stroke-width="1.2"/></svg></span>
+        <span><b>Retina Pair Lab</b><small>Bilateral data &amp; grade model</small></span>
+      </div>
+      <nav class="tabs" role="tablist" aria-label="과제 선택">
+        <button class="tab" id="tab-analysis" type="button" role="tab" aria-selected="true" aria-controls="panel-analysis" data-panel="analysis">과제 1 · 양안 분석</button>
+        <button class="tab" id="tab-model" type="button" role="tab" aria-selected="false" aria-controls="panel-model" data-panel="model">과제 2 · 등급 분류</button>
+      </nav>
+      <div class="status"><span class="status-dot" aria-hidden="true"></span><span>로컬 교육용</span></div>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="shell hero" aria-labelledby="hero-title">
+      <div class="hero-intro"><p class="eyebrow">Diabetic retinopathy · evidence workspace</p><h1 id="hero-title">두 눈의 관계를 읽고,<br>한 장의 등급을 검증합니다.</h1><p class="hero-copy">전체 35,126안의 양안 라벨 관계와 별도 2,000안 교육 하위집합으로 학습한 5등급 분류기를 한곳에서 확인합니다.</p></div>
+      <aside class="dataset-ledger" aria-label="확인한 데이터 구성"><div><strong>35,126</strong><span>제공 라벨 이미지</span></div><div><strong>17,563</strong><span>완전한 좌·우 쌍</span></div><div><strong>2,000</strong><span>모델 교육 하위집합</span></div><p>원본 무결성과 환자 단위 분할을 기록했습니다. 의료기기가 아닙니다.</p></aside>
+    </section>
+
+    <section class="shell section-panel" id="panel-analysis" role="tabpanel" aria-labelledby="tab-analysis">
+      <header class="section-heading split-heading"><div><p class="eyebrow">Assignment 01 · Bilateral evidence</p><h2>같은 사람의 두 눈은<br>같은 등급일까요?</h2></div><p>이미지명에서 ID와 좌·우를 분리해 17,563쌍을 만들었습니다. 아래 수치는 모델 예측이 아니라 전체 제공 라벨의 관계입니다.</p></header>
+      <div class="metrics-strip analysis-metrics" aria-label="양안 분석 핵심 수치">
+        <div class="metric"><strong id="agreement-value">—</strong><span>양안 등급 일치</span><small id="agreement-context">분석 결과 로딩 중</small></div>
+        <div class="metric"><strong id="discordant-value">—</strong><span>등급이 다른 ID</span><small id="discordant-context">전체 환자 기준</small></div>
+        <div class="metric"><strong id="kappa-value">—</strong><span>가중 카파</span><small>순서형 일치도</small></div>
+        <div class="metric"><strong id="affected-value">—</strong><span>병증 포함 쌍 일치</span><small id="affected-context">둘 중 하나가 1등급 이상</small></div>
+      </div>
+      <div class="analysis-layout">
+        <aside class="case-sidebar" aria-label="사례 선택과 해석">
+          <div><p class="control-label">등급 차이로 사례 보기</p><div class="filter-pills" id="gap-filter" role="group" aria-label="양안 등급 차이 필터"><button type="button" class="filter-pill" data-gap="all" aria-pressed="true">전체</button><button type="button" class="filter-pill" data-gap="0" aria-pressed="false" tabindex="-1">차이 0</button><button type="button" class="filter-pill" data-gap="1" aria-pressed="false" tabindex="-1">1</button><button type="button" class="filter-pill" data-gap="2" aria-pressed="false" tabindex="-1">2</button><button type="button" class="filter-pill" data-gap="3" aria-pressed="false" tabindex="-1">3</button><button type="button" class="filter-pill" data-gap="4" aria-pressed="false" tabindex="-1">4</button></div><p class="filter-status" id="gap-filter-status" role="status">사례를 불러오는 중입니다.</p></div>
+          <div class="notice caution">양쪽 등급 차이를 질병 진행이나 원인으로 단정할 수 없습니다. 촬영 품질과 판독 오차가 함께 영향을 줄 수 있습니다.</div>
+          <div class="download-list compact-downloads" aria-label="과제 1 결과 다운로드"><a href="/download/assignment1-report" download>과제 1 보고서 PDF</a><a href="/download/pairs" download>양안 쌍 CSV</a></div>
+        </aside>
+        <article class="optic-stage" aria-labelledby="case-title">
+          <div class="case-toolbar"><div class="case-meta"><strong id="case-title">실제 양안 사례</strong><span id="case-index">사례를 불러오는 중</span></div><div class="case-actions"><button class="icon-button" id="case-prev" type="button" aria-label="이전 사례" disabled><svg viewBox="0 0 24 24" fill="none"><path d="m15 18-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button class="icon-button" id="case-next" type="button" aria-label="다음 사례" disabled><svg viewBox="0 0 24 24" fill="none"><path d="m9 18 6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div></div>
+          <div class="retina-pair" id="retina-pair">
+            <figure class="retina-card"><div class="retina-image-wrap"><img class="retina-image" id="left-image" alt="왼쪽 안저 이미지" hidden></div><figcaption class="retina-caption"><span class="side-label">LEFT EYE</span><span class="grade-badge"><b id="left-grade">—</b><span id="left-grade-name">등급 대기</span></span></figcaption></figure>
+            <figure class="retina-card"><div class="retina-image-wrap"><img class="retina-image" id="right-image" alt="오른쪽 안저 이미지" hidden></div><figcaption class="retina-caption"><span class="side-label">RIGHT EYE</span><span class="grade-badge"><b id="right-grade">—</b><span id="right-grade-name">등급 대기</span></span></figcaption></figure>
+          </div>
+          <div class="notice error" id="case-error" role="status" aria-live="polite" hidden></div>
+        </article>
+      </div>
+      <div class="visuals-grid three-up">
+        <article class="data-card"><h3>등급 차이 분포</h3><p>0은 양안 일치, 4는 두 눈이 최대 네 단계 떨어진 경우입니다.</p><div class="bar-list" id="difference-bars" aria-label="양안 등급 차이별 환자 수"></div></article>
+        <article class="data-card"><h3>등급별 이미지 분포</h3><p>0등급 비중이 크므로 정확도만으로 성능을 읽으면 왜곡될 수 있습니다.</p><div class="bar-list" id="class-bars" aria-label="등급별 이미지 개수"></div></article>
+        <article class="data-card matrix-card"><h3>좌·우 등급 교차표</h3><p>행은 왼쪽, 열은 오른쪽 등급이며 대각선은 일치 사례입니다.</p><div class="matrix-wrap"><table class="matrix" id="cross-matrix" aria-label="좌우 등급 교차표"></table></div></article>
+      </div>
+    </section>
+
+    <section class="shell section-panel" id="panel-model" role="tabpanel" aria-labelledby="tab-model" hidden>
+      <header class="section-heading split-heading"><div><p class="eyebrow">Assignment 02 · Image classification</p><h2>안저 이미지 한 장을<br>0~4등급으로 분류합니다.</h2></div><p>환자 ID 단위로 학습·검증·최종평가를 분리했습니다. 아래 점수는 모델 출력이며 <span class="nowrap">의료 진단 확률이 아닙니다.</span></p></header>
+      <div class="prediction-layout">
+        <form class="upload-card" id="predict-form">
+          <label class="upload-well" id="upload-well" for="image-file"><span><svg class="upload-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 16V4m0 0L7.5 8.5M12 4l4.5 4.5M5 13v6h14v-6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="upload-title">안저 사진을 선택하세요</span><span class="upload-help">끌어다 놓기 또는 클릭 · JPEG/PNG · 최대 10MB</span></span><input id="image-file" name="image" type="file" accept="image/jpeg,image/png"><img class="upload-preview" id="upload-preview" alt="선택한 안저 이미지 미리보기" hidden></label>
+          <div class="notice error" id="upload-error" role="status" aria-live="polite" hidden></div><button class="primary-button" id="predict-button" type="submit" disabled>등급 분석하기</button>
+          <div class="demo-section"><div><strong>최종평가 예제로 시험하기</strong><span>학습과 모델 선택에 쓰지 않은 실제 원본입니다.</span></div><div class="demo-list" id="demo-list" aria-label="최종평가 예제"></div></div>
+          <div class="notice caution">교육용 실험입니다. 결과를 진단이나 치료 결정에 사용하지 마세요.</div>
+        </form>
+        <article class="result-card" aria-live="polite">
+          <div class="result-placeholder" id="result-placeholder"><div><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="7" stroke="currentColor" stroke-width="1.5"/><path d="M4 12c2.4-4 5-6 8-6s5.6 2 8 6c-2.4 4-5 6-8 6s-5.6-2-8-6Z" stroke="currentColor" stroke-width="1.2"/></svg><strong>실제 모델 결과가 여기에 표시됩니다</strong><p>직접 올리거나 최종평가 예제를 선택하면 5개 등급 점수와 가림 민감도를 계산합니다.</p></div></div>
+          <div id="result-content" hidden><div class="result-head"><div><p class="eyebrow">Model output</p><h3 id="result-name">—</h3><p id="result-context">가장 높은 모델 출력 점수의 등급</p></div><div class="result-grade" id="result-grade">—</div></div><div class="result-body"><div class="result-media"><div class="mode-toggle" role="group" aria-label="결과 이미지 보기"><button type="button" id="view-original" aria-pressed="true">원본</button><button type="button" id="view-sensitivity" aria-pressed="false" disabled>가림 민감도</button></div><div class="result-image-frame" id="sensitivity-panel"><img id="result-image" alt="분석한 안저 원본"><img id="sensitivity-image" alt="4×4 가림 실험으로 계산한 모델 민감도 오버레이" hidden></div><p id="sensitivity-note">가림 민감도는 모델 반응이며 병변 위치 정답이 아닙니다.</p></div><div><div class="scores" id="score-list"></div><div class="notice dark-notice">막대는 등급별 모델 출력의 상대적 크기입니다. 실제 중증도를 직접 설명하지 않습니다.</div></div></div></div>
+        </article>
+      </div>
+
+      <section class="evidence-section" aria-labelledby="evaluation-title">
+        <header class="evidence-heading"><div><p class="eyebrow">Held-out evaluation</p><h3 id="evaluation-title">한 번만 본 최종평가 300안</h3></div><p>정확도는 다수 등급에 끌릴 수 있어 QWK와 macro-F1을 함께 봅니다.</p></header>
+        <div class="metrics-strip model-metrics" aria-label="최종평가 모델 성능"><div class="metric"><strong id="metric-accuracy">—</strong><span>정확도</span></div><div class="metric"><strong id="metric-qwk">—</strong><span>QWK</span></div><div class="metric"><strong id="metric-f1">—</strong><span>macro-F1</span></div><div class="metric"><strong id="metric-size">—</strong><span>최종평가 이미지</span></div></div>
+        <div class="notice model-note" id="model-note" role="status" aria-live="polite">모델 평가 결과를 불러오는 중입니다.</div>
+        <div class="evaluation-grid">
+          <article class="data-card"><h3>등급별 재현율과 지지도</h3><p>표본이 적은 등급의 수치는 더 조심해서 읽어야 합니다.</p><div class="bar-list" id="recall-bars" aria-label="등급별 재현율과 최종평가 표본 수"></div></article>
+          <article class="data-card"><h3>최종평가 혼동행렬</h3><p>행은 실제 라벨, 열은 모델 예측입니다.</p><div class="matrix-wrap"><table class="matrix" id="model-matrix" aria-label="최종평가 혼동행렬"></table></div></article>
+          <article class="data-card baseline-card"><h3>다수 등급 기준선</h3><p>모두 0등급으로 답하면 정확도는 높지만 희귀 등급을 전혀 구분하지 못합니다.</p><dl><div><dt>정확도</dt><dd id="baseline-accuracy">—</dd></div><div><dt>QWK</dt><dd id="baseline-qwk">—</dd></div><div><dt>macro-F1</dt><dd id="baseline-f1">—</dd></div></dl><p class="baseline-summary" id="baseline-summary">기준선을 불러오는 중입니다.</p></article>
+        </div>
+      </section>
+
+      <section class="evidence-section" aria-labelledby="provenance-title">
+        <header class="evidence-heading"><div><p class="eyebrow">Data &amp; provenance</p><h3 id="provenance-title">어떤 자료로, 어떻게 나눴는지</h3></div><p>원본 무결성, 환자 단위 분할, 실행 환경을 결과와 함께 남겼습니다.</p></header>
+        <div class="provenance-grid"><article class="data-card"><h3>환자 단위 분할</h3><p>같은 환자의 두 눈은 항상 같은 분할에 있습니다.</p><div class="table-wrap"><table class="evidence-table" id="split-table"><thead><tr><th>분할</th><th>환자</th><th>이미지</th><th>등급별 이미지 0→4</th></tr></thead><tbody></tbody></table></div></article><article class="data-card integrity-card"><h3>무결성 기록</h3><dl><div><dt>검증한 원본</dt><dd id="integrity-images">—</dd></div><div><dt>환자 분할 중복</dt><dd id="integrity-overlap">—</dd></div><div><dt>최종평가 사용</dt><dd id="integrity-test-use">—</dd></div><div><dt>manifest SHA-256</dt><dd id="manifest-hash">—</dd></div></dl></article></div>
+        <div class="download-list" aria-label="과제 결과 다운로드"><a href="/download/assignment2-report" download>과제 2 보고서 PDF</a><a href="/download/metrics" download>평가 지표 JSON</a><a href="/download/manifest" download>분할 manifest CSV</a><a href="/download/run-config" download>실행 설정 JSON</a></div>
+      </section>
+    </section>
+  </main>
+  <footer class="footer"><div class="shell"><span>Retina Pair Lab · 데이터 기반 교육 과제</span><span>의료기기가 아니며 임상 검증을 거치지 않았습니다.</span></div></footer>
+</body>
+</html>

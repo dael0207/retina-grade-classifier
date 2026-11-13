@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Retina Pair Lab - Component Showcase</title>
+  <link rel="stylesheet" href="/assets/styles.css">
+</head>
+<body>
+  <main class="shell showcase">
+    <p class="eyebrow">Primitive showcase</p>
+    <h1><span class="nowrap">Retina Pair Lab</span> <span class="nowrap">구성 요소</span></h1>
+    <div class="showcase-grid">
+      <section class="showcase-block">
+        <h2>근거 수치</h2>
+        <div class="evidence-tile">
+          <span class="value">87.25%</span>
+          <span class="label">양안 등급 일치</span>
+          <span class="context">17,563명 기준</span>
+        </div>
+      </section>
+      <section class="showcase-block">
+        <h2>등급 및 상태</h2>
+        <p><span class="grade-badge"><b>2</b> 중등도</span></p>
+        <div class="notice">분석 결과가 준비되었습니다.</div>
+      </section>
+      <section class="showcase-block">
+        <h2>오류 상태</h2>
+        <div class="notice error" role="alert">이미지 형식을 확인해 주세요.</div>
+        <button class="primary-button" type="button" disabled>분석 중</button>
+      </section>
+      <section class="showcase-block">
+        <h2>로딩 상태</h2>
+        <div class="skeleton"></div>
+        <div class="skeleton" style="margin-top: 12px; min-height: 88px"></div>
+      </section>
+      <section class="showcase-block">
+        <h2>점수 행</h2>
+        <div class="score-row">
+          <span>2 · 중등도</span>
+          <span class="score-track"><span class="score-fill" style="display:block;width:62%"></span></span>
+          <span class="bar-value">0.620</span>
+        </div>
+      </section>
+      <section class="showcase-block">
+        <h2>키보드 조작</h2>
+        <button class="primary-button" type="button">기본 버튼</button>
+        <button class="secondary-button" type="button">보조 버튼</button>
+      </section>
+    </div>
+  </main>
+</body>
+</html>

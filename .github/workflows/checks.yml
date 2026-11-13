@@ -1,0 +1,24 @@
+name: Source checks
+
+on: [push, pull_request]
+
+jobs:
+  windows-cpu:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install uv
+        shell: pwsh
+        run: |
+          irm https://astral.sh/uv/install.ps1 | iex
+          "$env:USERPROFILE\.local\bin" | Out-File -FilePath $env:GITHUB_PATH -Append
+      - name: Check locked environment
+        run: uv sync --locked --python 3.12
+      - name: Lint
+        run: uv run --frozen ruff check retina model_runtime tests scripts
+      - name: Format
+        run: uv run --frozen ruff format --check retina model_runtime tests scripts
+      - name: Types
+        run: uv run --frozen basedpyright
+      - name: Synthetic regression tests
+        run: uv run --frozen pytest -q
