@@ -25,14 +25,14 @@ def _pdf_text(path: Path) -> str:
     if executable is None:
         pytest.skip("pdftotext is required only for rendered-PDF extraction tests")
     result = subprocess.run(  # noqa: S603
-        [executable, "-enc", "UTF-8", str(path), "-"],
+        [executable, "-layout", "-enc", "UTF-8", str(path), "-"],
         check=True,
         capture_output=True,
         text=True,
         encoding="utf-8",
         errors="replace",
     )
-    return result.stdout
+    return " ".join(result.stdout.split())
 
 
 def _write_image(path: Path, color: tuple[int, int, int]) -> None:
